@@ -6,7 +6,7 @@ Welcome to the repository for my personal website! You can access my personal we
 This repository contains the code and assets for my personal website, showcasing my portfolio, projects, and more.
       
 ## Project Structure
-
+ 
 The project structure is organized as follows:
 ```
 .
