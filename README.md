@@ -4,7 +4,7 @@
 Welcome to the repository for my personal website! You can access my personal website [here](https://omargeo.github.io/pw/).
 
 This repository contains the code and assets for my personal website, showcasing my portfolio, projects, and more.
- 
+  
 ## Project Structure
 
 The project structure is organized as follows:
