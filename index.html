@@ -1254,67 +1254,65 @@ advancing autonomous vehicle technology by 25% <br>
         - #CONTACT
       -->
 
-      <article class="contact" data-page="contact">
+<article class="contact" data-page="contact">
+  <header>
+    <h2 class="h2 article-title">Contact</h2>
+  </header>
 
-        <header>
-          <h2 class="h2 article-title">Contact</h2>
-        </header>
-
-        <section class="mapbox" data-mapbox>
-          <figure>
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28231.261072382546!2d-77.24325655759607!3d38.91938952762168!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b64af062f85bf9%3A0x7c4805f1ae7ddffa!2sTysons%2C%20VA!5e0!3m2!1sen!2sus!4v1754930668478!5m2!1sen!2sus"
-              width="400" height="300" loading="lazy"></iframe>
-          </figure>
-        </section>
-
-       <!DOCTYPE html>
-
-<head>
-  <title>Save Web Form Data to Spreadsheets</title>
-  <script src="https://code.jquery.com/jquery-3.4.1.js"
-          integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-          crossorigin="anonymous"></script>
-  <script>
-    function SubForm() {
-      $.ajax({
-        url: "https://api.apispreadsheets.com/data/WWKeHBxDRLSKc0ca/",
-        type: "post",
-        data: $("#myForm").serializeArray(),
-        success: function() {
-          alert("Form Data Submitted :)");
-        },
-        error: function() {
-          alert("There was an error :(");
-        }
-      });
-    }
-  </script>
-</head>
-<body>
-  <section class="contact-form">
-
-    <h3 class="h3 form-title">Contact Form</h3>
-
-    <form id="myForm" class="form" data-form>
-
-      <div class="input-wrapper">
-              <input type="text" name="name" class="form-input" placeholder="Full name" required data-form-input>
-
-              <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
-            </div>
-
-            <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
-
-      <button class="form-btn" type="button" onclick="SubForm()">
-        <ion-icon name="paper-plane"></ion-icon>
-        <span>Send Message</span>
-      </button>
-
-    </form>
-
+  <section class="mapbox" data-mapbox>
+    <figure>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28231.261072382546!2d-77.24325655759607!3d38.91938952762168!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b64af062f85bf9%3A0x7c4805f1ae7ddffa!2sTysons%2C%20VA!5e0!3m2!1sen!2sus!4v1754930668478!5m2!1sen!2sus"
+        width="400" height="300" loading="lazy">
+      </iframe>
+    </figure>
   </section>
-</body>
+
+  <head>
+    <title>Contact Form with EmailJS</title>
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+      (function() {
+        emailjs.init("GhMzO9WzZTXH1InV_"); // Your Public Key
+      })();
+
+      function sendEmail(e) {
+        e.preventDefault(); // Stop form from reloading
+
+        emailjs.sendForm('personal_web', 'template_gkzh6v5', '#myForm')
+          .then(function(response) {
+            alert("Message sent successfully!");
+            document.getElementById("myForm").reset();
+          }, function(error) {
+            alert("Failed to send message. Please try again.");
+            console.error('EmailJS Error:', error);
+          });
+      }
+    </script>
+  </head>
+
+  <body>
+    <section class="contact-form">
+      <h3 class="h3 form-title">Contact Form</h3>
+
+      <form id="myForm" class="form" data-form onsubmit="sendEmail(event)">
+        <div class="input-wrapper">
+          <input type="text" name="name" class="form-input" placeholder="Full name" required>
+          <input type="email" name="email" class="form-input" placeholder="Email address" required>
+        </div>
+
+        <textarea name="message" class="form-input" placeholder="Your Message" required></textarea>
+
+        <button class="form-btn" type="submit">
+          <ion-icon name="paper-plane"></ion-icon>
+          <span>Send Message</span>
+        </button>
+      </form>
+    </section>
+  </body>
+</article>
+
 
 
 
