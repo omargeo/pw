@@ -137,23 +137,56 @@ for (let i = 0; i < formInputs.length; i++) {
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
 const pages = document.querySelectorAll("[data-page]");
 
-// add event to all nav link
+// Function to show specific page (for hash navigation)
+const showPage = function(pageName) {
+  for (let i = 0; i < pages.length; i++) {
+    if (pageName === pages[i].dataset.page) {
+      pages[i].classList.add("active");
+      navigationLinks[i].classList.add("active");
+    } else {
+      pages[i].classList.remove("active");
+      navigationLinks[i].classList.remove("active");
+    }
+  }
+}
+
+// Handle page load - check for hash in URL
+window.addEventListener('DOMContentLoaded', function() {
+  const hash = window.location.hash.substring(1); // Remove the # symbol
+  const validPages = ['about', 'resume', 'projects', 'contact', 'blog'];
+  
+  if (hash && validPages.includes(hash.toLowerCase())) {
+    showPage(hash.toLowerCase());
+  } else {
+    // Default to about page if no valid hash
+    showPage('about');
+  }
+});
+
+// Handle hash changes (back/forward buttons)
+window.addEventListener('hashchange', function() {
+  const hash = window.location.hash.substring(1);
+  const validPages = ['about', 'resume', 'projects', 'contact', 'blog'];
+  
+  if (hash && validPages.includes(hash.toLowerCase())) {
+    showPage(hash.toLowerCase());
+  }
+});
+
+// add event to all nav link (UPDATED VERSION)
 for (let i = 0; i < navigationLinks.length; i++) {
   navigationLinks[i].addEventListener("click", function () {
-
-    for (let i = 0; i < pages.length; i++) {
-      if (this.innerHTML.toLowerCase() === pages[i].dataset.page) {
-        pages[i].classList.add("active");
-        navigationLinks[i].classList.add("active");
-        window.scrollTo(0, 0);
-      } else {
-        pages[i].classList.remove("active");
-        navigationLinks[i].classList.remove("active");
-      }
-    }
+    
+    const pageName = this.innerHTML.toLowerCase();
+    
+    // Update URL hash
+    window.location.hash = pageName;
+    
+    // Show the page
+    showPage(pageName);
+    
+    // Scroll to top
+    window.scrollTo(0, 0);
 
   });
 }
-
-
-
