@@ -139,21 +139,35 @@ const pages = document.querySelectorAll("[data-page]");
 
 // Function to show specific page (for hash navigation)
 const showPage = function(pageName) {
+  // Remove active class from all pages and navigation links
+  for (let i = 0; i < pages.length; i++) {
+    pages[i].classList.remove("active");
+  }
+  for (let i = 0; i < navigationLinks.length; i++) {
+    navigationLinks[i].classList.remove("active");
+  }
+  
+  // Add active class to the target page and its corresponding navigation link
   for (let i = 0; i < pages.length; i++) {
     if (pageName === pages[i].dataset.page) {
       pages[i].classList.add("active");
-      navigationLinks[i].classList.add("active");
-    } else {
-      pages[i].classList.remove("active");
-      navigationLinks[i].classList.remove("active");
+      
+      // Find and activate the corresponding navigation link
+      for (let j = 0; j < navigationLinks.length; j++) {
+        if (navigationLinks[j].innerHTML.toLowerCase() === pageName) {
+          navigationLinks[j].classList.add("active");
+          break;
+        }
+      }
+      break;
     }
   }
 }
 
-// Handle page load - check for hash in URL
-window.addEventListener('DOMContentLoaded', function() {
+// Function to initialize page based on URL hash
+const initializePage = function() {
   const hash = window.location.hash.substring(1); // Remove the # symbol
-  const validPages = ['about', 'resume', 'projects', 'contact', 'blog'];
+  const validPages = ['about', 'resume', 'projects', 'contact'];
   
   if (hash && validPages.includes(hash.toLowerCase())) {
     showPage(hash.toLowerCase());
@@ -161,12 +175,22 @@ window.addEventListener('DOMContentLoaded', function() {
     // Default to about page if no valid hash
     showPage('about');
   }
-});
+}
+
+// Handle page load - check for hash in URL
+window.addEventListener('DOMContentLoaded', initializePage);
+
+// Also run immediately in case DOMContentLoaded already fired
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializePage);
+} else {
+  initializePage();
+}
 
 // Handle hash changes (back/forward buttons)
 window.addEventListener('hashchange', function() {
   const hash = window.location.hash.substring(1);
-  const validPages = ['about', 'resume', 'projects', 'contact', 'blog'];
+  const validPages = ['about', 'resume', 'projects', 'contact'];
   
   if (hash && validPages.includes(hash.toLowerCase())) {
     showPage(hash.toLowerCase());
